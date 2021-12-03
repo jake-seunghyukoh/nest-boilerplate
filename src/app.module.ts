@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [],
+  imports: [ThrottlerModule.forRoot({ ttl: 60, limit: 30 })],
   controllers: [],
   providers: [],
 })
