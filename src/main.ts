@@ -4,12 +4,15 @@ import { AppModule } from './app.module';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as cookieParser from 'cookie-parser';
+import { ValidationPipe } from '@nestjs/common';
 // import * as csurf from 'csurf';
 // import * as session from 'express-session';
 // import { env } from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors();
 
