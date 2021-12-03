@@ -27,16 +27,19 @@
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/throttler": "^2.0.0",
+    "@nestjs/typeorm": "^8.0.2",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "csurf": "^1.11.0",
     "helmet": "^4.6.0",
+    "mysql2": "^2.3.3",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
