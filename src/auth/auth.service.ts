@@ -3,8 +3,8 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 import * as bcrypt from 'bcrypt';
-import { use } from 'passport';
 import { JwtService } from '@nestjs/jwt';
+import { SignUpDto } from './dtos/sign-up.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +23,11 @@ export class AuthService {
       if (valid) return user;
       else return null;
     } else return null;
+  }
+
+  async signUp(signUpDto: SignUpDto): Promise<boolean> {
+    const result = await this.usersService.createUser(signUpDto);
+    return result ? true : false;
   }
 
   async signIn(user: User): Promise<string> {
