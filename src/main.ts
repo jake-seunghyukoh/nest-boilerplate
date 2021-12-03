@@ -9,6 +9,7 @@ async function bootstrap() {
 
   app.use(compression());
   app.use(helmet());
+  app.enableCors();
 
   await app.listen(3000);
 }
