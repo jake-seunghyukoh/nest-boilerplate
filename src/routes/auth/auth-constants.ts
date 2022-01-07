@@ -21,4 +21,12 @@ export const authConstants = {
       template: 'verify-password',
     },
   },
+  redis: {
+    expirationTime: {
+      jwt: {
+        accessToken: 86400, // 1d
+        refreshToken: 604800, // 7d
+      },
+    },
+  },
 };

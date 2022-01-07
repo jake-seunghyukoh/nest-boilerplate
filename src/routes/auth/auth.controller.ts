@@ -16,6 +16,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from '@routes/auth/auth.service';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
+import { UserEntity } from '@routes/users/schemas/user.entity';
 import { UsersService } from '@routes/users/users.service';
 import ResponseUtils from '@utils/response.utils';
 import { Request as ExpressRequest } from 'express';
@@ -58,8 +59,13 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
-  async signIn(@Request() req: ExpressRequest): Promise<any> {
-    return;
+  async signIn(
+    @Request() req: ExpressRequest,
+  ): Promise<SuccessResponseInterface | never> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = req.user as UserEntity;
+
+    return ResponseUtils.success('tokens', await this.authService.login(user));
   }
 
   @Post('refresh-token')
