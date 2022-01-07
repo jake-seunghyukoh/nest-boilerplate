@@ -12,11 +12,11 @@ export default class UsersRepository {
   ) {}
 
   public create(dto: SignUpDto): Promise<User> {
-    return this.usersModel.save({ ...dto });
+    return this.usersModel.save({ ...dto, verified: false });
   }
 
   public insert(dto: SignUpDto): Promise<InsertResult> {
-    return this.usersModel.insert({ ...dto });
+    return this.usersModel.insert({ ...dto, verified: false });
   }
 
   public getById(userId: string): Promise<User> {

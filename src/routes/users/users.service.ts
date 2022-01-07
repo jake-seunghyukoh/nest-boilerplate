@@ -1,33 +1,24 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
-import { User } from '@routes/users/schemas/user.entity';
 import * as bcrypt from 'bcrypt';
-import { Repository } from 'typeorm';
+import { User } from './schemas/user.entity';
 import UsersRepository from './users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  private logger = new Logger('UsersService');
-
-  async createUser(signUpDto: SignUpDto): Promise<any> {
-    const { username, password } = signUpDto;
+  async createUser(signUpDto: SignUpDto): Promise<User> {
+    const { email, password } = signUpDto;
     const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt());
 
-    return this.usersRepository
-      .insert({
-        username: username,
-        password: hashedPassword,
-      })
-      .catch((err) => {
-        this.logger.error(`createUser :: ${err}`);
-        return null;
-      });
+    return this.usersRepository.create({
+      email: email,
+      password: hashedPassword,
+    });
   }
 
-  async getUser(username: string) {
-    return this.usersRepository.getByUsername(username);
+  async getUser(email: string) {
+    return this.usersRepository.getByEmail(email);
   }
 }

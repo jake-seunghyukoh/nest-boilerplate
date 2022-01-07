@@ -4,13 +4,13 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  readonly uid: string;
+  readonly userId: string;
 
   @Column({ length: 32 })
   @Index({ unique: true })
   readonly email: string = '';
 
-  @Column({ length: 32 })
+  @Column({ length: 64 })
   readonly password: string = '';
 
   @Column({ type: 'tinyint' })
