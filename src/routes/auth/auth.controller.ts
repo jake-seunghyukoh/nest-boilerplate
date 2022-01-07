@@ -5,6 +5,7 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   HttpCode,
   HttpStatus,
@@ -12,15 +13,19 @@ import {
   Param,
   Post,
   Request,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { authConstants } from '@routes/auth/auth-constants';
 import { AuthService } from '@routes/auth/auth.service';
+import RefreshTokenDto from '@routes/auth/dtos/refresh-token.dto';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
+import { DecodedUser } from '@routes/auth/interfaces/decoded-user.interface';
 import { UserEntity } from '@routes/users/schemas/user.entity';
 import { UsersService } from '@routes/users/users.service';
 import ResponseUtils from '@utils/response.utils';
 import { Request as ExpressRequest } from 'express';
-import { authConstants } from './auth-constants';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +33,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly usersSerivce: UsersService,
     private readonly mailerService: MailerService,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post('sign-up')
@@ -68,9 +74,35 @@ export class AuthController {
     return ResponseUtils.success('tokens', await this.authService.login(user));
   }
 
+  @HttpCode(HttpStatus.CREATED)
   @Post('refresh-token')
-  async refreshToken(@Body() refreshTokenDto): Promise<any> {
-    return;
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto): Promise<any> {
+    const decodedUser = this.jwtService.decode(
+      refreshTokenDto.refreshToken,
+    ) as DecodedUser;
+
+    if (!decodedUser) {
+      throw new ForbiddenException('Incorrect token');
+    }
+
+    const oldRefreshToken: string | null =
+      await this.authService.getRefreshTokenByEmail(decodedUser.email);
+
+    if (!oldRefreshToken || oldRefreshToken !== refreshTokenDto.refreshToken) {
+      throw new UnauthorizedException(
+        'Authentication credentials were missing or incorrect',
+      );
+    }
+
+    const payload = {
+      userId: decodedUser.userId,
+      email: decodedUser.email,
+    };
+
+    return ResponseUtils.success(
+      'tokens',
+      await this.authService.login(payload),
+    );
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

@@ -1,7 +1,7 @@
 import { RolesEnum } from '@decorators/roles.decorator';
 
 export interface LoginPayload {
-  readonly id?: number;
+  readonly userId?: string;
 
   readonly email?: string;
 
