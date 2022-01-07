@@ -7,6 +7,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Request,
@@ -19,6 +20,7 @@ import { UsersService } from '@routes/users/users.service';
 import { Request as ExpressRequest } from 'express';
 import { authConstants } from './auth-constants';
 import ResponseUtils from '@utils/response.utils';
+import { SuccessResponseInterface } from '@interfaces/success-response.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -31,7 +33,9 @@ export class AuthController {
 
   @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
-  async signUp(@Body() signUpDto: SignUpDto): Promise<any> {
+  async signUp(
+    @Body() signUpDto: SignUpDto,
+  ): Promise<SuccessResponseInterface | never> {
     const { userId, email } = await this.usersSerivce.createUser(signUpDto);
 
     const token = this.authService.createVerifyToken(userId);
@@ -65,9 +69,25 @@ export class AuthController {
     return;
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Get('verify/:token')
-  async verifyUser(@Param('token') token: string) {
-    return;
+  async verifyUser(
+    @Param('token') token: string,
+  ): Promise<SuccessResponseInterface | never> {
+    const { id } = await this.authService.verifyTokenWithSecret(
+      token,
+      authConstants.jwt.secrets.accessToken,
+    );
+
+    const user = await this.usersSerivce.getUnverifiedUserById(id);
+
+    if (!user) {
+      throw new NotFoundException('User does not exists');
+    }
+    return ResponseUtils.success(
+      'users',
+      await this.usersSerivce.update(user.userId, { verified: true }),
+    );
   }
 
   @Delete()

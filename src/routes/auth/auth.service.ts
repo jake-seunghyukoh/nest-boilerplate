@@ -15,4 +15,8 @@ export class AuthService {
       },
     );
   }
+
+  public verifyTokenWithSecret(token: string, secret: string) {
+    return this.jwtService.verifyAsync(token, { secret });
+  }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import * as bcrypt from 'bcrypt';
+import { UpdateResult } from 'typeorm';
+import UpdateUserDto from './dtos/update-user.dto';
 import { User } from './schemas/user.entity';
 import UsersRepository from './users.repository';
 
@@ -18,7 +20,15 @@ export class UsersService {
     });
   }
 
-  async getUser(email: string) {
+  update(userId: string, data: UpdateUserDto): Promise<UpdateResult> {
+    return this.usersRepository.updateById(userId, data);
+  }
+
+  public getUser(email: string) {
     return this.usersRepository.getByEmail(email);
+  }
+
+  public getUnverifiedUserById(userId: string) {
+    return this.usersRepository.getUnverifiedUserById(userId);
   }
 }
