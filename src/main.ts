@@ -1,10 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-
-import * as compression from 'compression';
-import * as helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
+import { AppModule } from '@app/app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
+import * as helmet from 'helmet';
+
 // import * as csurf from 'csurf';
 // import * as session from 'express-session';
 // import { env } from 'process';

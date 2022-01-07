@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { TasksService } from './tasks/tasks.service';
+import { AuthModule } from '../routes/auth/auth.module';
+import { UsersModule } from '../routes/users/users.module';
+import { TasksService } from '../routes/tasks/tasks.service';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({

@@ -1,10 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignUpDto } from 'src/auth/dtos/sign-up.dto';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-
+import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
+import { User } from '@routes/users/schemas/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {

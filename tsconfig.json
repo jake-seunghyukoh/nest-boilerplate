@@ -10,6 +10,17 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@constants/*": ["src/constants/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@filters/*": ["src/filters/*"],
+      "@guards/*": ["src/guards/*"],
+      "@interceptors/*": ["src/interceptors/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@routes/*": ["src/routes/*"],
+      "@utils/*": ["src/utils/*"]
+    },
     "incremental": true
   }
 }
