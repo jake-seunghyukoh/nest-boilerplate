@@ -4,13 +4,11 @@ import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import { User } from '@routes/users/schemas/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
+import UsersRepository from './users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   private logger = new Logger('UsersService');
 
@@ -30,8 +28,6 @@ export class UsersService {
   }
 
   async getUser(username: string) {
-    return this.usersRepository.findOne({
-      where: { username: username },
-    });
+    return this.usersRepository.getByUsername(username);
   }
 }
