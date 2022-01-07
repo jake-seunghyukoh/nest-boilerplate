@@ -8,6 +8,7 @@ import { TasksService } from '../routes/tasks/tasks.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { RedisModule } from 'nestjs-redis';
 
 @Module({
   imports: [
@@ -21,6 +22,19 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
     }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 30 }),
     ScheduleModule.forRoot(),
+    RedisModule.register({
+      url: process.env.REDIS_URL,
+      onClientReady: async (client): Promise<void> => {
+        client.on('error', console.error);
+        client.on('ready', () => {
+          console.log('redis is running on 6379 port');
+        });
+        client.on('restart', () => {
+          console.log('attempt to restart the redis server');
+        });
+      },
+      reconnectOnError: (): boolean => true,
+    }),
     MailerModule.forRoot({
       transport: {
         host: process.env.MAILER_HOST,
