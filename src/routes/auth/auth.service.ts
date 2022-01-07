@@ -28,7 +28,7 @@ export class AuthService {
 
     if (validPassword) {
       return {
-        id: user.userId,
+        userId: user.userId,
         email: user.email,
         role: user.role,
       };
@@ -57,6 +57,10 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+
+  getRefreshTokenByEmail(email: string): Promise<string | null> {
+    return this.authRepository.getToken(email);
   }
 
   public createVerifyToken(id: string): string {

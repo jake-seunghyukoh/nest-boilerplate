@@ -1,7 +1,7 @@
 import { RolesEnum } from '@decorators/roles.decorator';
 
 export interface ValidateUserOutput {
-  id: string;
+  userId: string;
   email?: string;
   role?: RolesEnum;
 }
