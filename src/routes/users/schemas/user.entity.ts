@@ -10,7 +10,7 @@ export class UserEntity {
   @Index({ unique: true })
   readonly email: string = '';
 
-  @Column({ length: 64 })
+  @Column({ length: 128 })
   readonly password: string = '';
 
   @Column({ type: 'tinyint' })
