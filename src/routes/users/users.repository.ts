@@ -3,16 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import { DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import UpdateUserDto from './dtos/update-user.dto';
-import { User } from './schemas/user.entity';
+import { UserEntity } from './schemas/user.entity';
 
 @Injectable()
 export default class UsersRepository {
   constructor(
-    @InjectRepository(User)
-    private readonly usersModel: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly usersModel: Repository<UserEntity>,
   ) {}
 
-  public create(dto: SignUpDto): Promise<User> {
+  public create(dto: SignUpDto): Promise<UserEntity> {
     return this.usersModel.save({ ...dto, verified: false });
   }
 
@@ -27,23 +27,23 @@ export default class UsersRepository {
     return this.usersModel.update(userId, data);
   }
 
-  public getById(userId: string): Promise<User> {
+  public getById(userId: string): Promise<UserEntity> {
     return this.usersModel.findOne(userId);
   }
 
-  public getByEmail(email: string): Promise<User> {
+  public getByEmail(email: string): Promise<UserEntity> {
     return this.usersModel.findOne({ email });
   }
 
-  public getVerifiedUserById(userId: string): Promise<User> {
+  public getVerifiedUserById(userId: string): Promise<UserEntity> {
     return this.usersModel.findOne({ userId, verified: true });
   }
 
-  public getVerifiedUserByEmail(email: string): Promise<User> {
+  public getVerifiedUserByEmail(email: string): Promise<UserEntity> {
     return this.usersModel.findOne({ email, verified: true });
   }
 
-  public getUnverifiedUserById(userId: string): Promise<User> {
+  public getUnverifiedUserById(userId: string): Promise<UserEntity> {
     return this.usersModel.findOne({ userId, verified: false });
   }
 

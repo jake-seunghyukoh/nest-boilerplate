@@ -3,14 +3,14 @@ import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateResult } from 'typeorm';
 import UpdateUserDto from './dtos/update-user.dto';
-import { User } from './schemas/user.entity';
+import { UserEntity } from './schemas/user.entity';
 import UsersRepository from './users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async createUser(signUpDto: SignUpDto): Promise<User> {
+  async createUser(signUpDto: SignUpDto): Promise<UserEntity> {
     const { email, password } = signUpDto;
     const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt());
 

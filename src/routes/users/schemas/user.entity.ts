@@ -1,8 +1,8 @@
 import { RolesEnum } from '@decorators/roles.decorator';
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class User {
+@Entity('users')
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly userId: string;
 
