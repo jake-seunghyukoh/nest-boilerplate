@@ -39,6 +39,10 @@ export default class UsersRepository {
     return this.usersModel.findOne({ userId, verified: true });
   }
 
+  public getVerifiedUserByEmail(email: string): Promise<User> {
+    return this.usersModel.findOne({ email, verified: true });
+  }
+
   public getUnverifiedUserById(userId: string): Promise<User> {
     return this.usersModel.findOne({ userId, verified: false });
   }

@@ -31,4 +31,8 @@ export class UsersService {
   public getUnverifiedUserById(userId: string) {
     return this.usersRepository.getUnverifiedUserById(userId);
   }
+
+  public getVerifiedUserByEmail(email: string) {
+    return this.usersRepository.getVerifiedUserByEmail(email);
+  }
 }

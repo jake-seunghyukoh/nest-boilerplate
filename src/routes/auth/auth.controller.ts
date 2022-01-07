@@ -1,4 +1,5 @@
 import { LocalAuthGuard } from '@guards/local-auth.guard';
+import { SuccessResponseInterface } from '@interfaces/success-response.interface';
 import { MailerService } from '@nestjs-modules/mailer';
 import {
   Body,
@@ -13,20 +14,17 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { AuthService } from '@routes/auth/auth.service';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import { UsersService } from '@routes/users/users.service';
+import ResponseUtils from '@utils/response.utils';
 import { Request as ExpressRequest } from 'express';
 import { authConstants } from './auth-constants';
-import ResponseUtils from '@utils/response.utils';
-import { SuccessResponseInterface } from '@interfaces/success-response.interface';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly jwtService: JwtService,
     private readonly usersSerivce: UsersService,
     private readonly mailerService: MailerService,
   ) {}
