@@ -23,8 +23,8 @@ export default class UsersRepository {
     return this.usersModel.findOne(userId);
   }
 
-  public getByUsername(username: string): Promise<User> {
-    return this.usersModel.findOne({ username });
+  public getByEmail(email: string): Promise<User> {
+    return this.usersModel.findOne({ email });
   }
 
   public deleteById(userId: string): Promise<DeleteResult> {

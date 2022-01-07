@@ -8,7 +8,7 @@ export class User {
 
   @Column({ length: 32 })
   @Index({ unique: true })
-  readonly username: string = '';
+  readonly email: string = '';
 
   @Column({ length: 32 })
   readonly password: string = '';
