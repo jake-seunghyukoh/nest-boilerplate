@@ -1,4 +1,4 @@
-import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
+import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 
 class ResponseUtils {
   public success(

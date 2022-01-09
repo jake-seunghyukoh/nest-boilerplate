@@ -1,10 +1,10 @@
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
-import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
+import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { Injectable } from '@nestjs/common';
-import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
+import { SignUpDto } from '@routes/auth/dtos/signUp.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateResult } from 'typeorm';
-import UpdateUserDto from './dtos/update-user.dto';
+import UpdateUserDto from './dtos/updateUser.dto';
 import { UserEntity } from './schemas/user.entity';
 import UsersRepository from './users.repository';
 

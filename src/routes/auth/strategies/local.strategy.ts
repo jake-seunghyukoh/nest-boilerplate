@@ -8,8 +8,8 @@ import { AuthService } from '@routes/auth/auth.service';
 import { validate } from 'class-validator';
 import { Request as ExpressRequest } from 'express';
 import { Strategy } from 'passport-local';
-import SignInDto from '../dtos/sign-in.dto';
-import { ValidateUserOutput } from '@routes/auth/interfaces/validate-user-output.interface';
+import SignInDto from '../dtos/signIn.dto';
+import { ValidateUserOutput } from '@routes/auth/interfaces/validateUserOutput.interface';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

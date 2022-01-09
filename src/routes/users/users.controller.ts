@@ -1,9 +1,9 @@
 import { Roles, RolesEnum } from '@decorators/roles.decorator';
 import Serialize from '@decorators/serialization.decorator';
-import { JwtAccessGuard } from '@guards/jwt-access.guard';
+import { JwtAccessGuard } from '@guards/jwtAccess.guard';
 import RolesGuard from '@guards/roles.guard';
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
-import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
+import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import {
   BadRequestException,
   Controller,
@@ -17,7 +17,7 @@ import {
 import { UsersService } from '@routes/users/users.service';
 import PaginationUtils from '@utils/pagination.utils';
 import ResponseUtils from '@utils/response.utils';
-import { AllUsersResponseEntity } from './entities/user-response.entity';
+import { AllUsersResponseEntity } from './entities/userResponse.entity';
 
 @Controller('users')
 export class UsersController {

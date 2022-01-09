@@ -2,10 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@routes/users/users.service';
 import * as bcrypt from 'bcrypt';
-import { authConstants } from './auth-constants';
+import { authConstants } from './authConstants';
 import AuthRepository from './auth.repository';
-import { LoginPayload } from './interfaces/login-payload.interface';
-import { ValidateUserOutput } from './interfaces/validate-user-output.interface';
+import { LoginPayload } from './interfaces/loginPayload.interface';
+import { ValidateUserOutput } from './interfaces/validateUserOutput.interface';
 
 @Injectable()
 export class AuthService {
