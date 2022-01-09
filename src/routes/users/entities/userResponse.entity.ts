@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
+import { RolesEnum } from '@decorators/roles.decorator';
+import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { Exclude, Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
-import { RolesEnum } from '@decorators/roles.decorator';
 
 export class UserResponseEntity {
   userId: string;

@@ -1,7 +1,5 @@
-import { Roles, RolesEnum } from '@decorators/roles.decorator';
 import Serialize from '@decorators/serialization.decorator';
 import { JwtAccessGuard } from '@guards/jwtAccess.guard';
-import RolesGuard from '@guards/roles.guard';
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
 import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import {

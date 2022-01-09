@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { AuthService } from '@routes/auth/auth.service';
+import SignInDto from '@routes/auth/dtos/signIn.dto';
+import { ValidateUserOutput } from '@routes/auth/interfaces/validateUserOutput.interface';
 import { validate } from 'class-validator';
 import { Request as ExpressRequest } from 'express';
 import { Strategy } from 'passport-local';
-import SignInDto from '../dtos/signIn.dto';
-import { ValidateUserOutput } from '@routes/auth/interfaces/validateUserOutput.interface';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

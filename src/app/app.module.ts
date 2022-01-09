@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { ThrottlerModule } from '@nestjs/throttler';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { getConnectionOptions } from 'typeorm';
-import { AuthModule } from '../routes/auth/auth.module';
-import { UsersModule } from '../routes/users/users.module';
-import { TasksService } from '../routes/tasks/tasks.service';
-import { ScheduleModule } from '@nestjs/schedule';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '@routes/auth/auth.module';
+import { TasksService } from '@routes/tasks/tasks.service';
+import { UsersModule } from '@routes/users/users.module';
 import { RedisModule } from 'nestjs-redis';
+import { getConnectionOptions } from 'typeorm';
 
 @Module({
   imports: [
