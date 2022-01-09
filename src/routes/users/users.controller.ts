@@ -2,6 +2,7 @@ import Serialize from '@decorators/serialization.decorator';
 import { JwtAccessGuard } from '@guards/jwtAccess.guard';
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
 import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
+import { SuccessResponseInterface } from '@interfaces/successResponse.interface';
 import {
   BadRequestException,
   Controller,
@@ -24,7 +25,9 @@ export class UsersController {
   @Get()
   @UseGuards(JwtAccessGuard)
   @Serialize(AllUsersResponseEntity)
-  async getAllVerifiedUsers(@Query() query: any) {
+  async getAllVerifiedUsers(
+    @Query() query: any,
+  ): Promise<SuccessResponseInterface | never> {
     const paginationParams: PaginationParamsInterface | false =
       PaginationUtils.normalizeParams(query.page);
 
@@ -45,7 +48,9 @@ export class UsersController {
   @Get(':userId')
   @UseGuards(JwtAccessGuard)
   @Serialize(AllUsersResponseEntity)
-  async getUserById(@Param('userId', ParseUUIDPipe) userId: string) {
+  async getUserById(
+    @Param('userId', ParseUUIDPipe) userId: string,
+  ): Promise<SuccessResponseInterface | never> {
     const foundUser = await this.usersService.getVerifiedUserById(userId);
 
     if (!foundUser) {
