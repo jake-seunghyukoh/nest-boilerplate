@@ -1,6 +1,9 @@
+import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
+import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
+import PaginationUtils from '@utils/pagination.utils';
 import { DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
 import UpdateUserDto from './dtos/update-user.dto';
 import { UserEntity } from './schemas/user.entity';
@@ -49,5 +52,25 @@ export default class UsersRepository {
 
   public deleteById(userId: string): Promise<DeleteResult> {
     return this.usersModel.delete(userId);
+  }
+
+  public async getAllVerifiedWithPagination(
+    options: PaginationParamsInterface,
+  ): Promise<PaginatedUsersInterface> {
+    const verified = true;
+    const [users, totalCount] = await Promise.all([
+      this.usersModel.find({
+        where: {
+          verified,
+        },
+        skip: PaginationUtils.getSkipCount(options.page, options.limit),
+        take: PaginationUtils.getLimitCount(options.limit),
+      }),
+      this.usersModel.count({
+        where: { verified },
+      }),
+    ]);
+
+    return { paginatedResult: users, totalCount };
   }
 }

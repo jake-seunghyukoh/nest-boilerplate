@@ -1,3 +1,5 @@
+import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
+import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
 import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '@routes/auth/dtos/sign-up.dto';
 import * as bcrypt from 'bcrypt';
@@ -38,5 +40,11 @@ export class UsersService {
 
   public getUnverifiedUserById(userId: string) {
     return this.usersRepository.getUnverifiedUserById(userId);
+  }
+
+  public async getAllVerifiedWithPagination(
+    options: PaginationParamsInterface,
+  ): Promise<PaginatedUsersInterface> {
+    return this.usersRepository.getAllVerifiedWithPagination(options);
   }
 }
