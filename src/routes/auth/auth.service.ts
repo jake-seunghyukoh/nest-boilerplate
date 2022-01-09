@@ -15,7 +15,7 @@ export class AuthService {
     private authRepository: AuthRepository,
   ) {}
 
-  public async validateUser(
+  async validateUser(
     email: string,
     password: string,
   ): Promise<ValidateUserOutput | null> {
@@ -37,7 +37,7 @@ export class AuthService {
     return null;
   }
 
-  public async login(payload: LoginPayload) {
+  async login(payload: LoginPayload) {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: authConstants.jwt.expirationTime.accessToken,
       secret: authConstants.jwt.secrets.accessToken,
@@ -61,6 +61,10 @@ export class AuthService {
 
   getRefreshTokenByEmail(email: string): Promise<string | null> {
     return this.authRepository.getToken(email);
+  }
+
+  deleteAllTokens(): Promise<string> {
+    return this.authRepository.removeAllTokens();
   }
 
   public createVerifyToken(id: string): string {

@@ -1,4 +1,6 @@
+import { Roles, RolesEnum } from '@decorators/roles.decorator';
 import { LocalAuthGuard } from '@guards/local-auth.guard';
+import RolesGuard from '@guards/roles.guard';
 import { SuccessResponseInterface } from '@interfaces/success-response.interface';
 import { MailerService } from '@nestjs-modules/mailer';
 import {
@@ -129,5 +131,13 @@ export class AuthController {
   @Delete()
   async deleteAccount() {
     return 'Delete Account';
+  }
+
+  @Delete('logout-all')
+  @UseGuards(RolesGuard)
+  @Roles(RolesEnum.admin)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async logoutAll(): Promise<string> {
+    return this.authService.deleteAllTokens();
   }
 }
