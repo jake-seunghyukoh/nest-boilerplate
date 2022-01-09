@@ -28,11 +28,15 @@ export class UsersService {
     return this.usersRepository.getByEmail(email);
   }
 
-  public getUnverifiedUserById(userId: string) {
-    return this.usersRepository.getUnverifiedUserById(userId);
+  public getVerifiedUserById(userId: string) {
+    return this.usersRepository.getVerifiedUserById(userId);
   }
 
   public getVerifiedUserByEmail(email: string) {
     return this.usersRepository.getVerifiedUserByEmail(email);
+  }
+
+  public getUnverifiedUserById(userId: string) {
+    return this.usersRepository.getUnverifiedUserById(userId);
   }
 }
