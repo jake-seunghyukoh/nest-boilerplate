@@ -13,12 +13,12 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async createUser(signUpDto: SignUpDto): Promise<UserEntity> {
-    const { email, password } = signUpDto;
+    const { password, ...others } = signUpDto;
     const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt());
 
     return this.usersRepository.create({
-      email: email,
       password: hashedPassword,
+      ...others,
     });
   }
 

@@ -16,7 +16,10 @@ export default class UsersRepository {
   ) {}
 
   public create(dto: SignUpDto): Promise<UserEntity> {
-    return this.usersModel.save({ ...dto, verified: false });
+    return this.usersModel.save({
+      ...dto,
+      verified: false,
+    });
   }
 
   public insert(dto: SignUpDto): Promise<InsertResult> {
