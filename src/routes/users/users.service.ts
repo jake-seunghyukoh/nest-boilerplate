@@ -1,9 +1,8 @@
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
-import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '@routes/auth/dtos/signUp.dto';
 import * as bcrypt from 'bcrypt';
-import { UpdateResult } from 'typeorm';
+import { FindManyOptions, UpdateResult } from 'typeorm';
 import UpdateUserDto from './dtos/updateUser.dto';
 import { UserEntity } from './schemas/user.entity';
 import UsersRepository from './users.repository';
@@ -43,7 +42,7 @@ export class UsersService {
   }
 
   public async getAllVerifiedWithPagination(
-    options: PaginationParamsInterface,
+    options: FindManyOptions<UserEntity>,
   ): Promise<PaginatedUsersInterface> {
     return this.usersRepository.getAllVerifiedWithPagination(options);
   }

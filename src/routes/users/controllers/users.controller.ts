@@ -2,7 +2,6 @@ import Serialize from '@decorators/serialization.decorator';
 import { JwtAccessGuard } from '@guards/jwtAccess.guard';
 import WrapResponseInterceptor from '@interceptors/wrap-response.interceptor';
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
-import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { SuccessResponseInterface } from '@interfaces/successResponse.interface';
 import {
   BadRequestException,
@@ -17,8 +16,10 @@ import {
 } from '@nestjs/common';
 import { AllUsersResponseEntity } from '@routes/users/entities/userResponse.entity';
 import { UsersService } from '@routes/users/users.service';
-import PaginationUtils from '@utils/pagination.utils';
+import paginationUtils from '@utils/pagination.utils';
+import queryParamsUtils from '@utils/queryParams.utils';
 import ResponseUtils from '@utils/response.utils';
+import { QueryParamsDto } from 'src/dtos/queryParams.dto';
 
 @UseInterceptors(WrapResponseInterceptor)
 @Controller('users')
@@ -29,17 +30,16 @@ export class UsersController {
   @UseGuards(JwtAccessGuard)
   @Serialize(AllUsersResponseEntity)
   async getAllVerifiedUsers(
-    @Query() query: any,
+    @Query() query: QueryParamsDto,
   ): Promise<SuccessResponseInterface | never> {
-    const paginationParams: PaginationParamsInterface | false =
-      PaginationUtils.normalizeParams(query);
-
+    const params = queryParamsUtils.parseQueryParams(query);
+    const paginationParams = paginationUtils.normalizeParams(query);
     if (!paginationParams) {
       throw new BadRequestException('Invalid pagination parameters');
     }
 
     const paginatedUsers: PaginatedUsersInterface =
-      await this.usersService.getAllVerifiedWithPagination(paginationParams);
+      await this.usersService.getAllVerifiedWithPagination(params);
 
     return ResponseUtils.success('users', paginatedUsers.paginatedResult, {
       location: 'users',

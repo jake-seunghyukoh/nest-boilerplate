@@ -4,7 +4,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from '@routes/auth/dtos/signUp.dto';
 import PaginationUtils from '@utils/pagination.utils';
-import { DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
+import {
+  DeleteResult,
+  FindManyOptions,
+  InsertResult,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import UpdateUserDto from './dtos/updateUser.dto';
 import { UserEntity } from './schemas/user.entity';
 
@@ -55,16 +61,17 @@ export default class UsersRepository {
   }
 
   public async getAllVerifiedWithPagination(
-    options: PaginationParamsInterface,
+    options: FindManyOptions<UserEntity>,
   ): Promise<PaginatedUsersInterface> {
+    const { skip, take } = options;
     const verified = true;
     const [users, totalCount] = await Promise.all([
       this.usersModel.find({
         where: {
           verified,
         },
-        skip: PaginationUtils.getSkipCount(options.page, options.limit),
-        take: PaginationUtils.getLimitCount(options.limit),
+        skip,
+        take,
       }),
       this.usersModel.count({
         where: { verified },
