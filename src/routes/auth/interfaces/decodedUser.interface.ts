@@ -1,5 +1,5 @@
 export interface DecodedUser {
-  readonly userId: string;
+  readonly id: string;
 
   readonly email: string;
 

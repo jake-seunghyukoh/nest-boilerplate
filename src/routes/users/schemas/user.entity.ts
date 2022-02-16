@@ -6,7 +6,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('user')
 export class UserEntity extends TimestampedEntity {
   @PrimaryGeneratedColumn('uuid')
-  readonly userId: string;
+  readonly id: string;
 
   @Column({ length: 32 })
   @Index({ unique: true })

@@ -1,5 +1,6 @@
 import Serialize from '@decorators/serialization.decorator';
 import { JwtAccessGuard } from '@guards/jwtAccess.guard';
+import WrapResponseInterceptor from '@interceptors/wrap-response.interceptor';
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
 import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { SuccessResponseInterface } from '@interfaces/successResponse.interface';
@@ -12,12 +13,14 @@ import {
   ParseUUIDPipe,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AllUsersResponseEntity } from '@routes/users/entities/userResponse.entity';
 import { UsersService } from '@routes/users/users.service';
 import PaginationUtils from '@utils/pagination.utils';
 import ResponseUtils from '@utils/response.utils';
 
+@UseInterceptors(WrapResponseInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -29,7 +32,7 @@ export class UsersController {
     @Query() query: any,
   ): Promise<SuccessResponseInterface | never> {
     const paginationParams: PaginationParamsInterface | false =
-      PaginationUtils.normalizeParams(query.page);
+      PaginationUtils.normalizeParams(query);
 
     if (!paginationParams) {
       throw new BadRequestException('Invalid pagination parameters');
@@ -45,13 +48,13 @@ export class UsersController {
     });
   }
 
-  @Get(':userId')
+  @Get(':id')
   @UseGuards(JwtAccessGuard)
   @Serialize(AllUsersResponseEntity)
   async getUserById(
-    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<SuccessResponseInterface | never> {
-    const foundUser = await this.usersService.getVerifiedUserById(userId);
+    const foundUser = await this.usersService.getVerifiedUserById(id);
 
     if (!foundUser) {
       throw new NotFoundException('The user does not exist');

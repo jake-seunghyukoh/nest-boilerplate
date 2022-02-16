@@ -20,7 +20,7 @@ export default class JwtRefreshStrategy extends PassportStrategy(
 
   async validate(payload: UserEntity): Promise<JwtStrategyValidate> {
     return {
-      userId: payload.userId,
+      id: payload.id,
       email: payload.email,
       role: payload.role,
     };

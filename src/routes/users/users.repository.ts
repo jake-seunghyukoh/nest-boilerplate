@@ -26,35 +26,32 @@ export default class UsersRepository {
     return this.usersModel.insert({ ...dto, verified: false });
   }
 
-  public updateById(
-    userId: string,
-    data: UpdateUserDto,
-  ): Promise<UpdateResult> {
-    return this.usersModel.update(userId, data);
+  public updateById(id: string, data: UpdateUserDto): Promise<UpdateResult> {
+    return this.usersModel.update(id, data);
   }
 
-  public getById(userId: string): Promise<UserEntity> {
-    return this.usersModel.findOne(userId);
+  public getById(id: string): Promise<UserEntity> {
+    return this.usersModel.findOne(id);
   }
 
   public getByEmail(email: string): Promise<UserEntity> {
     return this.usersModel.findOne({ email });
   }
 
-  public getVerifiedUserById(userId: string): Promise<UserEntity> {
-    return this.usersModel.findOne({ userId, verified: true });
+  public getVerifiedUserById(id: string): Promise<UserEntity> {
+    return this.usersModel.findOne({ id, verified: true });
   }
 
   public getVerifiedUserByEmail(email: string): Promise<UserEntity> {
     return this.usersModel.findOne({ email, verified: true });
   }
 
-  public getUnverifiedUserById(userId: string): Promise<UserEntity> {
-    return this.usersModel.findOne({ userId, verified: false });
+  public getUnverifiedUserById(id: string): Promise<UserEntity> {
+    return this.usersModel.findOne({ id, verified: false });
   }
 
-  public deleteById(userId: string): Promise<DeleteResult> {
-    return this.usersModel.delete(userId);
+  public deleteById(id: string): Promise<DeleteResult> {
+    return this.usersModel.delete(id);
   }
 
   public async getAllVerifiedWithPagination(

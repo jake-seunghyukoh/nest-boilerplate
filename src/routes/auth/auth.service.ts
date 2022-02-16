@@ -28,7 +28,7 @@ export class AuthService {
 
     if (validPassword) {
       return {
-        userId: user.userId,
+        id: user.id,
         email: user.email,
         role: user.role,
       };

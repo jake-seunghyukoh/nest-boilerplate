@@ -5,7 +5,7 @@ import { Exclude, Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
 export class UserResponseEntity {
-  userId: string;
+  id: string;
 
   role: RolesEnum = RolesEnum.user;
 

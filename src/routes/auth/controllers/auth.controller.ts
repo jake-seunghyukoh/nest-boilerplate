@@ -83,7 +83,7 @@ export class AuthController {
     }
 
     const payload = {
-      userId: decodedUser.userId,
+      id: decodedUser.id,
       email: decodedUser.email,
     };
 
@@ -110,7 +110,7 @@ export class AuthController {
     }
     return ResponseUtils.success(
       'users',
-      await this.usersSerivce.update(user.userId, { verified: true }),
+      await this.usersSerivce.update(user.id, { verified: true }),
     );
   }
 

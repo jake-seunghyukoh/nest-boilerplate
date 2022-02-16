@@ -6,11 +6,11 @@ class PaginationUtils {
     location: string,
     paginationParams?: PaginationParamsInterface,
   ): string {
-    if (!process.env.SERVER_HOST) {
-      throw new Error('SERVER_HOST parameter did not provide in env');
+    if (!process.env.HOST) {
+      throw new Error('HOST parameter did not provide in env');
     }
 
-    let url = `${process.env.SERVER_HOST}/${location}?`;
+    let url = `${process.env.HOST}/${location}?`;
     let count = 0;
     if (paginationParams) {
       if (paginationParams.page) {
@@ -43,21 +43,24 @@ class PaginationUtils {
   }
 
   public normalizeParams(params: {
-    number?: string;
-    limit?: string;
+    page?: string;
+    pageLimit?: string;
     size?: string;
   }): PaginationParamsInterface | false {
-    const ret: { page: number; limit?: number } = { page: 1 };
+    const ret: { page: number; limit?: number } = {
+      page: 1,
+      limit: commonConstants.pagination.defaultLimit,
+    };
     if (!params) {
       return ret;
     }
 
-    const page = PaginationUtils.normalizeParam(params.number);
+    const page = PaginationUtils.normalizeParam(params.page);
     if (page) {
       ret.page = page;
     }
 
-    const limit = PaginationUtils.normalizeParam(params.limit);
+    const limit = PaginationUtils.normalizeParam(params.pageLimit);
     if (limit) {
       ret.limit = limit;
     }
@@ -75,13 +78,12 @@ class PaginationUtils {
     paginationParams: PaginationParamsInterface,
     totalCount: number,
   ): any {
-    const pageMax =
-      Math.floor(
-        totalCount /
-          (paginationParams.limit
-            ? paginationParams.limit
-            : commonConstants.pagination.defaultLimit),
-      ) + 1;
+    const pageMax = Math.ceil(
+      totalCount /
+        (paginationParams.limit
+          ? paginationParams.limit
+          : commonConstants.pagination.defaultLimit),
+    );
 
     return {
       self: PaginationUtils.buildLink(location, paginationParams),

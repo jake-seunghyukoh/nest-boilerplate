@@ -22,24 +22,24 @@ export class UsersService {
     });
   }
 
-  update(userId: string, data: UpdateUserDto): Promise<UpdateResult> {
-    return this.usersRepository.updateById(userId, data);
+  update(id: string, data: UpdateUserDto): Promise<UpdateResult> {
+    return this.usersRepository.updateById(id, data);
   }
 
   public getUser(email: string) {
     return this.usersRepository.getByEmail(email);
   }
 
-  public getVerifiedUserById(userId: string) {
-    return this.usersRepository.getVerifiedUserById(userId);
+  public getVerifiedUserById(id: string) {
+    return this.usersRepository.getVerifiedUserById(id);
   }
 
   public getVerifiedUserByEmail(email: string) {
     return this.usersRepository.getVerifiedUserByEmail(email);
   }
 
-  public getUnverifiedUserById(userId: string) {
-    return this.usersRepository.getUnverifiedUserById(userId);
+  public getUnverifiedUserById(id: string) {
+    return this.usersRepository.getUnverifiedUserById(id);
   }
 
   public async getAllVerifiedWithPagination(
