@@ -1,8 +1,10 @@
 import { RolesEnum } from '@decorators/roles.decorator';
+import { NameEntity } from 'src/schemas/common.entity';
+import { TimestampedEntity } from 'src/schemas/timestamp.entity';
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('users')
-export class UserEntity {
+@Entity('user')
+export class UserEntity extends TimestampedEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly userId: string;
 
@@ -18,4 +20,7 @@ export class UserEntity {
 
   @Column({ type: 'enum', enum: RolesEnum, default: RolesEnum.user })
   readonly role: RolesEnum = RolesEnum.user;
+
+  @Column(() => NameEntity)
+  name: NameEntity;
 }
