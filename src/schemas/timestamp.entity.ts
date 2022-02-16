@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export class TimestampedEntity extends BaseEntity {
+export abstract class TimestampedEntity extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
