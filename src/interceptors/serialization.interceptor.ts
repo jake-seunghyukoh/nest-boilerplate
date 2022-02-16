@@ -1,3 +1,4 @@
+import { getSerializeType } from '@decorators/serialization.decorator';
 import {
   CallHandler,
   ExecutionContext,
@@ -6,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getSerializeType } from '@decorators/serialization.decorator';
 
 @Injectable()
 export default class SerializeInterceptor implements NestInterceptor {

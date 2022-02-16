@@ -1,5 +1,5 @@
-import { env } from 'process';
 import * as dotenv from 'dotenv';
+import { env } from 'process';
 
 dotenv.config();
 

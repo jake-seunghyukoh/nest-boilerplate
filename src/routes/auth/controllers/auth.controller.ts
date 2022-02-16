@@ -19,7 +19,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { authConstants } from '@routes/auth/authConstants';
+import { authConstants } from '@routes/auth/auth.constants';
 import { AuthService } from '@routes/auth/auth.service';
 import RefreshTokenDto from '@routes/auth/dtos/refreshToken.dto';
 import { SignUpDto } from '@routes/auth/dtos/signUp.dto';

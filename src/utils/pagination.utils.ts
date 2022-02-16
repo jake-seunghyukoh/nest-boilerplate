@@ -1,5 +1,5 @@
-import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import commonConstants from '@constants/common.constants';
+import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 
 class PaginationUtils {
   private static buildLink(

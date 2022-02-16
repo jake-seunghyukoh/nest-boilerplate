@@ -13,10 +13,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AllUsersResponseEntity } from '@routes/users/entities/userResponse.entity';
 import { UsersService } from '@routes/users/users.service';
 import PaginationUtils from '@utils/pagination.utils';
 import ResponseUtils from '@utils/response.utils';
-import { AllUsersResponseEntity } from './entities/userResponse.entity';
 
 @Controller('users')
 export class UsersController {

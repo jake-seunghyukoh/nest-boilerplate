@@ -5,9 +5,9 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@routes/auth/auth.module';
-import { TasksService } from '@routes/tasks/tasks.service';
 import { UsersModule } from '@routes/users/users.module';
 import { RedisModule } from 'nestjs-redis';
+import { TasksService } from 'src/modules/tasks/tasks.service';
 import { getConnectionOptions } from 'typeorm';
 
 @Module({
