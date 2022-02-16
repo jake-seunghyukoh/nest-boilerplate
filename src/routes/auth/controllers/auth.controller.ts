@@ -43,21 +43,7 @@ export class AuthController {
   async signUp(
     @Body() signUpDto: SignUpDto,
   ): Promise<SuccessResponseInterface | never> {
-    const { userId, email } = await this.usersSerivce.createUser(signUpDto);
-
-    const token = this.authService.createVerifyToken(userId);
-
-    await this.mailerService.sendMail({
-      to: email,
-      from: process.env.MAILER_FROM_EMAIL,
-      subject: authConstants.mailer.verifyEmail.subject,
-      template: `./src/templates/verifyPassword`,
-      context: {
-        token,
-        email,
-        host: process.env.SERVER_HOST,
-      },
-    });
+    await this.usersSerivce.createUser(signUpDto);
 
     return ResponseUtils.success('auth', {
       message: 'Success! please verify your email',
