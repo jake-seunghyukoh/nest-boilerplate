@@ -5,7 +5,7 @@ import { IsArray, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 export class QueryParamsDto implements QueryParamsInterface {
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  @Min(0)
+  @Min(1)
   @IsOptional()
   page: number;
 
