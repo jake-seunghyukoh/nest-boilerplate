@@ -8,17 +8,17 @@ export class UserEntity extends TimestampedEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column({ length: 32 })
+  @Column('varchar', { length: 32, nullable: false })
   @Index({ unique: true })
-  readonly email: string = '';
+  readonly email: string;
 
-  @Column({ length: 128 })
-  readonly password: string = '';
+  @Column('varchar', { length: 60, nullable: false })
+  readonly password: string;
 
-  @Column({ type: 'tinyint' })
+  @Column('tinyint', { default: false })
   readonly verified: boolean = false;
 
-  @Column({ type: 'enum', enum: RolesEnum, default: RolesEnum.user })
+  @Column('enum', { enum: RolesEnum, default: RolesEnum.user })
   readonly role: RolesEnum = RolesEnum.user;
 
   @Column(() => NameEntity)
