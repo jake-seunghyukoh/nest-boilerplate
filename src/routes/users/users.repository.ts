@@ -1,9 +1,7 @@
 import { PaginatedUsersInterface } from '@interfaces/paginatedEntity.interface';
-import { PaginationParamsInterface } from '@interfaces/paginationParams.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignUpDto } from '@routes/auth/dtos/signUp.dto';
-import PaginationUtils from '@utils/pagination.utils';
 import {
   DeleteResult,
   FindManyOptions,
