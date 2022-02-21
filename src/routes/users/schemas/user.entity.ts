@@ -22,5 +22,5 @@ export class UserEntity extends TimestampedEntity {
   readonly role: RolesEnum = RolesEnum.user;
 
   @Column(() => NameEntity)
-  name: NameEntity;
+  readonly name: NameEntity;
 }

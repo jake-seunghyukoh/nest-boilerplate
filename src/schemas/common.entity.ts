@@ -6,11 +6,11 @@ export class NameEntity {
   @IsString()
   @MaxLength(16)
   @Column('varchar', { nullable: false, length: 16 })
-  first: string;
+  readonly first: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(16)
   @Column('varchar', { nullable: false, length: 16 })
-  last: string;
+  readonly last: string;
 }

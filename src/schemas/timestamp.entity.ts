@@ -7,11 +7,11 @@ import {
 
 export abstract class TimestampedEntity extends BaseEntity {
   @CreateDateColumn()
-  createdAt: Date;
+  readonly createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  readonly updatedAt: Date;
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  readonly deletedAt: Date;
 }
