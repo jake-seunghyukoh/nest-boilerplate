@@ -9,6 +9,7 @@ import { UsersModule } from '@routes/users/users.module';
 import { RedisModule } from 'nestjs-redis';
 import { TasksService } from 'src/modules/tasks/tasks.service';
 import { getConnectionOptions } from 'typeorm';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -56,7 +57,7 @@ import { getConnectionOptions } from 'typeorm';
       },
     }),
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [TasksService],
 })
 export class AppModule {}

@@ -1,0 +1,21 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "src/(.*)": "<rootDir>/src/$1",
+    "@app/(.*)": "<rootDir>/src/app/$1",
+    "@constants/(.*)": "<rootDir>/src/constants/$1",
+    "@decorators/(.*)": "<rootDir>/src/decorators/$1",
+    "@filters/(.*)": "<rootDir>/src/filters/$1",
+    "@guards/(.*)": "<rootDir>/src/guards/$1",
+    "@interceptors/(.*)": "<rootDir>/src/interceptors/$1",
+    "@interfaces/(.*)": "<rootDir>/src/interfaces/$1",
+    "@routes/(.*)": "<rootDir>/src/routes/$1",
+    "@utils/(.*)": "<rootDir>/src/utils/$1"
+  }
+}
