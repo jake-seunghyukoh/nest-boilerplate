@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getConnectionToken } from '@nestjs/typeorm';
-import { MockedConnection } from 'src/connection';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { MockedRepository } from 'src/mock';
+import { UserEntity } from '../schemas/user.entity';
+import UsersRepository from '../users.repository';
 import { UsersService } from '../users.service';
 import { UsersController } from './users.controller';
 
@@ -9,17 +11,13 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [],
       controllers: [UsersController],
       providers: [
         UsersService,
+        UsersRepository,
         {
-          provide: getConnectionToken(),
-          useClass: MockedConnection,
-        },
-        {
-          provide: 'UsersRepository',
-          useClass: class MockedRepository {},
+          provide: getRepositoryToken(UserEntity),
+          useValue: MockedRepository(),
         },
       ],
     }).compile();

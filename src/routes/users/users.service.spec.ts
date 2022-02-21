@@ -1,31 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getConnectionToken } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { UsersService } from '@routes/users/users.service';
-import { MockedConnection } from 'src/connection';
+import { MockedRepository, MockRepository } from 'src/mock';
+import { UserEntity } from './schemas/user.entity';
+import UsersRepository from './users.repository';
 
 describe('UsersService', () => {
   let service: UsersService;
+  let usersModel: MockRepository<UserEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [],
       providers: [
         UsersService,
+        UsersRepository,
         {
-          provide: getConnectionToken(),
-          useClass: MockedConnection,
-        },
-        {
-          provide: 'UsersRepository',
-          useClass: class MockedRepository {},
+          provide: getRepositoryToken(UserEntity),
+          useValue: MockedRepository(),
         },
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
+    usersModel = module.get<MockRepository<UserEntity>>(
+      getRepositoryToken(UserEntity),
+    );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(usersModel).toBeDefined();
   });
 });

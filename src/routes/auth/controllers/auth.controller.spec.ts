@@ -1,12 +1,13 @@
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getConnectionToken } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { authConstants } from '@routes/auth/auth.constants';
 import { AuthService } from '@routes/auth/auth.service';
 import { AuthController } from '@routes/auth/controllers/auth.controller';
-import { UsersService } from '@routes/users/users.service';
-import { MockedConnection } from 'src/connection';
+import { UserEntity } from '@routes/users/schemas/user.entity';
+import UsersRepository from '@routes/users/users.repository';
+import { MockedRepository } from 'src/mock';
 import AuthRepository from '../auth.repository';
 
 describe('AuthController', () => {
@@ -22,21 +23,17 @@ describe('AuthController', () => {
         }),
       ],
       providers: [
+        UsersRepository,
+        {
+          provide: 'UsersService',
+          useClass: class MockedService {},
+        },
+        {
+          provide: getRepositoryToken(UserEntity),
+          useValue: MockedRepository(),
+        },
         AuthService,
-        UsersService,
-        {
-          provide: getConnectionToken(),
-          useClass: MockedConnection,
-        },
         AuthRepository,
-        {
-          provide: 'UsersRepository',
-          useClass: class MockedRepository {},
-        },
-        {
-          provide: 'RedisModule',
-          useClass: class MockedRedisModule {},
-        },
         {
           provide: 'RedisService',
           useClass: class MockedRedisService {
