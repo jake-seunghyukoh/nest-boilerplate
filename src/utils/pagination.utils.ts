@@ -22,7 +22,7 @@ class PaginationUtils {
           url += '&';
         }
 
-        url += `limit=${paginationParams.limit}`;
+        url += `pageLimit=${paginationParams.limit}`;
       }
     }
 
