@@ -15,10 +15,10 @@ export class UserEntity extends TimestampedEntity {
   @Column('varchar', { length: 60, nullable: false })
   readonly password: string;
 
-  @Column('tinyint', { default: false })
+  @Column('tinyint', { default: false, nullable: false })
   readonly verified: boolean = false;
 
-  @Column('enum', { enum: RolesEnum, default: RolesEnum.user })
+  @Column('enum', { enum: RolesEnum, default: RolesEnum.user, nullable: false })
   readonly role: RolesEnum = RolesEnum.user;
 
   @Column(() => NameEntity)
