@@ -34,7 +34,6 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersSerivce: UsersService,
-    private readonly mailerService: MailerService,
     private readonly jwtService: JwtService,
   ) {}
 
