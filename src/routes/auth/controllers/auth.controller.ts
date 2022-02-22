@@ -2,7 +2,6 @@ import { Roles, RolesEnum } from '@decorators/roles.decorator';
 import { LocalAuthGuard } from '@guards/localAuth.guard';
 import RolesGuard from '@guards/roles.guard';
 import { SuccessResponseInterface } from '@interfaces/successResponse.interface';
-import { MailerService } from '@nestjs-modules/mailer';
 import {
   Body,
   Controller,
@@ -33,7 +32,7 @@ import { Request as ExpressRequest } from 'express';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly usersSerivce: UsersService,
+    private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -42,7 +41,7 @@ export class AuthController {
   async signUp(
     @Body() signUpDto: SignUpDto,
   ): Promise<SuccessResponseInterface | never> {
-    await this.usersSerivce.createUser(signUpDto);
+    await this.usersService.createUser(signUpDto);
 
     return ResponseUtils.success('auth', {
       message: 'Success! please verify your email',
@@ -102,14 +101,14 @@ export class AuthController {
       authConstants.jwt.secrets.accessToken,
     );
 
-    const user = await this.usersSerivce.getUnverifiedUserById(id);
+    const user = await this.usersService.getUnverifiedUserById(id);
 
     if (!user) {
       throw new NotFoundException('User does not exists');
     }
     return ResponseUtils.success(
       'users',
-      await this.usersSerivce.update(user.id, { verified: true }),
+      await this.usersService.update(user.id, { verified: true }),
     );
   }
 
