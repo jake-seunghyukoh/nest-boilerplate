@@ -10,9 +10,9 @@ import { ValidateUserOutput } from './interfaces/validateUserOutput.interface';
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
-    private usersService: UsersService,
-    private authRepository: AuthRepository,
+    private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
+    private readonly authRepository: AuthRepository,
   ) {}
 
   async validateUser(

@@ -24,7 +24,7 @@ import { QueryParamsDto } from 'src/dtos/queryParams.dto';
 @UseInterceptors(WrapResponseInterceptor)
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   @UseGuards(JwtAccessGuard)
